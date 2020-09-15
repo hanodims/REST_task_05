@@ -2,7 +2,7 @@ from rest_framework.generics import ListAPIView, RetrieveAPIView, RetrieveUpdate
 from datetime import datetime
 
 from .models import Flight, Booking
-from .serializers import FlightSerializer, BookingSerializer, BookingDetailsSerializer, UpdateBookingSerializer, RegisterSerializer,AdminUpdateBookingSerializer
+from .serializers import FlightSerializer, BookingSerializer, BookingDetailsSerializer, UpdateBookingSerializer, RegisterSerializer,UserUpdateBookingSerializer
 
 
 class FlightsList(ListAPIView):
@@ -32,9 +32,9 @@ class UpdateBooking(RetrieveUpdateAPIView):
 
 	def get_serializer_class(self):
 		if self.request.user.is_staff:
-			return AdminUpdateBookingSerializer
-		else:
 			return UpdateBookingSerializer
+		else:
+			return UserUpdateBookingSerializer
 
 
 class CancelBooking(DestroyAPIView):
